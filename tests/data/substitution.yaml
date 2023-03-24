@@ -1,0 +1,13 @@
+default:
+  role_session_name: "global-level-{profile}-user"
+profiles:
+  prof1:
+  prof2:
+    role_session_name: "prof-level-{profile}-user"
+  prof3:
+    target_profile_default:
+      role_session_name: "assume-role-level-{profile}-user"
+    target_profiles:
+      prof3-1:
+      prof3-2:
+        role_session_name: "prof-level-{profile}-user"

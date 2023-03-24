@@ -18,13 +18,14 @@ def convert(instream: TextIO, outstream: TextIO):
     profiles = {}
     for name, prof in config.get("profiles", {}).items():
         prof = {} if prof is None else prof
-        prof = _subst_variables(prof, {"profile": name})
         target_profiles = prof.pop("target_profiles", {})
         target_profile_default = prof.pop("target_profile_default", {})
-        profiles[name] = default_settings | prof
+        merged_prof = default_settings | prof
+        profiles[name] = _subst_variables(merged_prof, {"profile": name})
         for target_name, target_prof in target_profiles.items():
-            target_prof = _subst_variables(target_prof, {"profile": name})
-            profiles[target_name] = default_settings | target_profile_default | {"source_profile": name} | target_prof
+            target_prof = {} if target_prof is None else target_prof
+            merged_target_prof = default_settings | target_profile_default | {"source_profile": name} | target_prof
+            profiles[target_name] = _subst_variables(merged_target_prof, {"profile": target_name})
     #print(list(profiles))
     for name, prof in profiles.items():
         prof_name = "[default]" if name == "default" else f"[profile {name}]"

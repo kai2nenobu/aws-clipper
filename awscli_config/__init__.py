@@ -12,9 +12,12 @@ def _subst_variables(dic: dict, variables: dict):
 
 def _convert(instream: TextIO, outstream: TextIO):
     config = yaml.safe_load(instream)
-    default_settings = config["default"]
+    if config is None:
+        return # nothing to do
+    default_settings = config.get("default", {})
     profiles = {}
-    for name, prof in config["profiles"].items():
+    for name, prof in config.get("profiles", {}).items():
+        prof = {} if prof is None else prof
         prof = _subst_variables(prof, {"profile": name})
         target_profiles = prof.pop("target_profiles", {})
         target_profile_default = prof.pop("target_profile_default", {})

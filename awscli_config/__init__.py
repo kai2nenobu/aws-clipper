@@ -1,13 +1,15 @@
-from typing import TextIO
+from __future__ import annotations
+
+from typing import Any, TextIO
 
 import yaml
 
 
-def _subst_variables(dic: dict, variables: dict):
+def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str, Any]:
     return {k: v.format(**variables) if isinstance(v, str) else v for k, v in dic.items()}
 
 
-def convert(instream: TextIO, outstream: TextIO):
+def convert(instream: TextIO, outstream: TextIO) -> None:
     config = yaml.safe_load(instream)
     if config is None:
         return  # nothing to do

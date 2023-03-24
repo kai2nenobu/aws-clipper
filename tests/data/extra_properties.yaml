@@ -1,0 +1,8 @@
+default:
+  region: us-east-1
+  extra_prop1: default prop1
+profiles:
+  prof1:
+    extra_prop2: custom prop2
+  prof2:
+    extra_prop1: custom prop1

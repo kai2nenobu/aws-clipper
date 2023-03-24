@@ -1,0 +1,7 @@
+default:
+  region: us-east-1
+profiles:
+  prof1:
+  prof2: {}
+  prof3:
+    region: us-east-2

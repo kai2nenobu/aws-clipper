@@ -11,9 +11,10 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: "${{ matrix.OS }}"
     strategy:
       matrix:
+        OS: [ubuntu-22.04, macos-12, windows-2022]
         PYTHON: ["3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:

@@ -4,16 +4,13 @@ import yaml
 
 
 def _subst_variables(dic: dict, variables: dict):
-    return {
-        k: v.format(**variables) if isinstance(v, str) else v
-        for k, v in dic.items()
-    }
+    return {k: v.format(**variables) if isinstance(v, str) else v for k, v in dic.items()}
 
 
 def convert(instream: TextIO, outstream: TextIO):
     config = yaml.safe_load(instream)
     if config is None:
-        return # nothing to do
+        return  # nothing to do
     default_settings = config.get("default", {})
     profiles = {}
     for name, prof in config.get("profiles", {}).items():
@@ -26,7 +23,7 @@ def convert(instream: TextIO, outstream: TextIO):
             target_prof = {} if target_prof is None else target_prof
             merged_target_prof = default_settings | target_profile_default | {"source_profile": name} | target_prof
             profiles[target_name] = _subst_variables(merged_target_prof, {"profile": target_name})
-    #print(list(profiles))
+    # print(list(profiles))
     for name, prof in profiles.items():
         prof_name = "[default]" if name == "default" else f"[profile {name}]"
         outstream.write(prof_name + "\n")

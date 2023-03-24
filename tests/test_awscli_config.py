@@ -10,6 +10,7 @@ def all_test_data():
     """Read from input yaml and expected config from "data" directory."""
     data_dir = Path(__file__).parent / "data"
     yamls = data_dir.glob("**/*.yaml")
+
     def param(yaml_file: Path):
         test_name = yaml_file.name
         ini = yaml_file.with_suffix(".ini")

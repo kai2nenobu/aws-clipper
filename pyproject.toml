@@ -28,10 +28,15 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
-exclude = '''
-(
-    .venv
-    |.mypy_cache
-    |.tox
-)
-'''
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ['E203']
+
+[tool.mypy]
+python_version = 3.7
+strict = true

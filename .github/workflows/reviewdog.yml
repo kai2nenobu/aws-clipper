@@ -9,12 +9,25 @@ permissions:
   pull-requests: write
 
 jobs:
-  reviewdog-black:
+  reviewdog:
     name: reviewdog-black
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - run: pip install black==23.1.0
+      - name: Use Python 3.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.7"
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+      - name: Install dependencies
+        run: poetry install
+      - name: Create wrapper scripts to launch linter via poetry
+        run: |
+          for linter in black isort flake8 mypy; do
+            printf '#!/bin/sh\npoetry run %s "$@"\n' "$linter" | tee ~/.local/bin/$linter
+            chmod 755 ~/.local/bin/$linter
+          done
       - uses: reviewdog/action-black@v3
         with:
           github_token: ${{ secrets.github_token }}

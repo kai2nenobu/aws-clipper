@@ -12,12 +12,16 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        PYTHON: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+      fail-fast: false
     steps:
       - uses: actions/checkout@v3
-      - name: Use Python 3.7
+      - name: Use Python ${{ matrix.PYTHON }}
         uses: actions/setup-python@v4
         with:
-          python-version: "3.7"
+          python-version: "${{ matrix.PYTHON }}"
       - name: Install poetry
         uses: snok/install-poetry@v1
       - name: Install dependencies

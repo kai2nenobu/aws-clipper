@@ -10,7 +10,7 @@ def _subst_variables(dic: dict, variables: dict):
     }
 
 
-def _convert(instream: TextIO, outstream: TextIO):
+def convert(instream: TextIO, outstream: TextIO):
     config = yaml.safe_load(instream)
     if config is None:
         return # nothing to do
@@ -32,13 +32,3 @@ def _convert(instream: TextIO, outstream: TextIO):
         for k, v in prof.items():
             outstream.write(f"{k} = {v}\n")
         outstream.write("\n")
-
-
-def main():
-    import sys
-
-    _convert(sys.stdin, sys.stdout)
-
-
-if __name__ == "__main__":
-    main()

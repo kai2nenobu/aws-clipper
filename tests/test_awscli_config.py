@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from awscli_config import _convert
+from awscli_config import convert
 
 
 def all_test_data():
@@ -23,5 +23,5 @@ def all_test_data():
 def test_data(input_yaml: str, expected_config: str):
     input = StringIO(input_yaml)
     output = StringIO()
-    _convert(input, output)
+    convert(input, output)
     assert output.getvalue() == expected_config

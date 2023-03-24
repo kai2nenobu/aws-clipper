@@ -14,7 +14,7 @@ def all_test_data():
     def param(yaml_file: Path):
         test_name = yaml_file.name
         ini = yaml_file.with_suffix(".ini")
-        enc = 'utf-8'
+        enc = "utf-8"
         return pytest.param(yaml_file.read_text(encoding=enc), ini.read_text(encoding=enc), id=test_name)
 
     return [param(yaml_file) for yaml_file in yamls]

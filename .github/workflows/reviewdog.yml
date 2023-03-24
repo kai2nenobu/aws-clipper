@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   reviewdog:
-    name: reviewdog-black
+    name: reviewdog
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -28,8 +28,19 @@ jobs:
             printf '#!/bin/sh\npoetry run %s "$@"\n' "$linter" | tee ~/.local/bin/$linter
             chmod 755 ~/.local/bin/$linter
           done
-      - uses: reviewdog/action-black@v3
+      - name: black
+        uses: reviewdog/action-black@v3
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
+          filter_mode: nofilter
+      - name: flake8
+        uses: reviewdog/action-flake8@v3
+        with:
+          github_token: ${{ secrets.github_token }}
+          filter_mode: nofilter
+      - name: mypy
+        uses: tsuyoshicho/action-mypy@v3
+        with:
+          github_token: ${{ secrets.github_token }}
           filter_mode: nofilter

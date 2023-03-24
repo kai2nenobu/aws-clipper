@@ -1,18 +1,19 @@
 from __future__ import annotations
 
-import yaml
 from typing import Any, TextIO
+
+import yaml
 
 
 def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str, Any]:
     return {k: v.format(**variables) if isinstance(v, str) else v for k, v in dic.items()}
 
 
-def convert(instream: TextIO, outstream: TextIO):
+def convert(instream: TextIO, outstream: TextIO) -> None:
     config = yaml.safe_load(instream)
     if config is None:
         return  # nothing to do
-    default_settings = config.get('default', {})
+    default_settings = config.get("default", {})
     profiles = {}
     for name, prof in config.get("profiles", {}).items():
         prof = {} if prof is None else prof
@@ -27,7 +28,6 @@ def convert(instream: TextIO, outstream: TextIO):
     # print(list(profiles))
     for name, prof in profiles.items():
         prof_name = "[default]" if name == "default" else f"[profile {name}]"
-        not_used = "varaible"
         outstream.write(prof_name + "\n")
         for k, v in prof.items():
             outstream.write(f"{k} = {v}\n")

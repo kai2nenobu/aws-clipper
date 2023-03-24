@@ -1,3 +1,5 @@
+from typing import TextIO
+
 import yaml
 
 
@@ -8,7 +10,8 @@ def _subst_variables(dic: dict, variables: dict):
     }
 
 
-def _convert(config: dict):
+def _convert(instream: TextIO, outstream: TextIO):
+    config = yaml.safe_load(instream)
     default_settings = config["default"]
     profiles = {}
     for name, prof in config["profiles"].items():
@@ -22,17 +25,16 @@ def _convert(config: dict):
     #print(list(profiles))
     for name, prof in profiles.items():
         prof_name = "[default]" if name == "default" else f"[profile {name}]"
-        print(prof_name)
+        outstream.write(prof_name + "\n")
         for k, v in prof.items():
-            print(f"{k} = {v}")
-        print("")
+            outstream.write(f"{k} = {v}\n")
+        outstream.write("\n")
 
 
 def main():
     import sys
 
-    conf = yaml.safe_load(sys.stdin)
-    _convert(conf)
+    _convert(sys.stdin, sys.stdout)
 
 
 if __name__ == "__main__":

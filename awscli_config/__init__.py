@@ -1,4 +1,4 @@
-import json
+import yaml
 
 
 def _subst_variables(dic: dict, variables: dict):
@@ -31,7 +31,7 @@ def _convert(config: dict):
 def main():
     import sys
 
-    conf = json.load(sys.stdin)
+    conf = yaml.safe_load(sys.stdin)
     _convert(conf)
 
 

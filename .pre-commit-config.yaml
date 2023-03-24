@@ -20,26 +20,26 @@ repos:
     hooks:
       - id: black
         name: Format by black
-        entry: black
-        language: python
+        entry: poetry run black
+        language: system
         types_or: [python, pyi]
         require_serial: true
       - id: isort
         name: Format by isort
-        entry: isort
+        entry: poetry run isort
         args: ['--filter-files']
-        language: python
+        language: system
         types_or: [cython, pyi, python]
         require_serial: true
       - id: flake8
         name: Lint by flake8
-        entry: flake8
-        language: python
+        entry: poetry run flake8
+        language: system
         types: [python]
         require_serial: true
       - id: mypy
         name: Lint by mypy
-        entry: mypy
-        language: python
+        entry: poetry run mypy
+        language: system
         types_or: [python, pyi]
         require_serial: true

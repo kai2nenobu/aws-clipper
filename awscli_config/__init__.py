@@ -19,11 +19,16 @@ def convert(instream: TextIO, outstream: TextIO) -> None:
         prof = {} if prof is None else prof
         target_profiles = prof.pop("target_profiles", {})
         target_profile_default = prof.pop("target_profile_default", {})
-        merged_prof = default_settings | prof
+        merged_prof = {**default_settings, **prof}
         profiles[name] = _subst_variables(merged_prof, {"profile": name})
         for target_name, target_prof in target_profiles.items():
             target_prof = {} if target_prof is None else target_prof
-            merged_target_prof = default_settings | target_profile_default | {"source_profile": name} | target_prof
+            merged_target_prof = {
+                **default_settings,
+                **target_profile_default,
+                **{"source_profile": name},
+                **target_prof,
+            }
             profiles[target_name] = _subst_variables(merged_target_prof, {"profile": target_name})
     # print(list(profiles))
     for name, prof in profiles.items():

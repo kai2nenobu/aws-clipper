@@ -33,5 +33,9 @@ setup: ## Configure a local dev environment. Execute once after cloning this rep
 lint: ## Lint all files
 	$(PRE_COMMIT) run --all-files
 
+lint-no-reviewdog: ## Lint by linters which is not used with reviewdog in CI
+	@comm -23 <(yq '.repos[].hooks[].id' .pre-commit-config.yaml | sort) \
+	    <(printf "%s\n%s\n%s\n%s\n" black flake8 isort mypy) | xargs -L 1 $(PRE_COMMIT) run --all-files
+
 test: ## Test by pytest
 	$(POETRY) run pytest .

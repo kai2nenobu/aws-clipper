@@ -1,7 +1,7 @@
 from . import convert
 
 
-def main():
+def main() -> None:
     import sys
 
     convert(sys.stdin, sys.stdout)

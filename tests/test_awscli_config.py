@@ -1,17 +1,20 @@
+from __future__ import annotations
+
 from io import StringIO
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 from awscli_config import convert
 
 
-def all_test_data():
+def all_test_data() -> list[Any]:
     """Read from input yaml and expected config from "data" directory."""
     data_dir = Path(__file__).parent / "data"
     yamls = data_dir.glob("**/*.yaml")
 
-    def param(yaml_file: Path):
+    def param(yaml_file: Path) -> Any:
         test_name = yaml_file.name
         ini = yaml_file.with_suffix(".ini")
         enc = "utf-8"
@@ -21,7 +24,7 @@ def all_test_data():
 
 
 @pytest.mark.parametrize("input_yaml, expected_config", all_test_data())
-def test_data(input_yaml: str, expected_config: str):
+def test_data(input_yaml: str, expected_config: str) -> None:
     input = StringIO(input_yaml)
     output = StringIO()
     convert(input, output)

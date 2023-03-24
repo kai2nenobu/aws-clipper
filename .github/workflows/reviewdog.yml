@@ -5,18 +5,52 @@ on:
     branches: [main]
 
 permissions:
+  checks: write
   contents: read
   pull-requests: write
 
 jobs:
-  reviewdog-black:
-    name: reviewdog-black
+  reviewdog:
+    name: reviewdog
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - run: pip install black==23.1.0
-      - uses: reviewdog/action-black@v3
+      - name: Use Python 3.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.7"
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+      - name: Install dependencies
+        run: poetry install
+      - name: Create wrapper scripts to launch linter via poetry
+        run: |
+          for linter in black isort flake8 mypy; do
+            printf '#!/bin/sh\npoetry run %s "$@"\n' "$linter" | tee ~/.local/bin/$linter
+            chmod 755 ~/.local/bin/$linter
+          done
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      - name: black
+        uses: reviewdog/action-black@v3
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
+          filter_mode: nofilter
+      - name: isort
+        run: >-
+          isort --diff --quiet . | sed -r '/^(---|\+\+\+)/ s@:(before|after)@@'
+          | reviewdog -f=diff -f.diff.strip=0 -name=isort -reporter=github-pr-review -filter-mode=nofilter
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+      - name: flake8
+        uses: reviewdog/action-flake8@v3
+        with:
+          github_token: ${{ secrets.github_token }}
+          filter_mode: nofilter
+      - name: mypy
+        uses: tsuyoshicho/action-mypy@v3
+        with:
+          github_token: ${{ secrets.github_token }}
           filter_mode: nofilter

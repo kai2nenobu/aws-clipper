@@ -1,0 +1,17 @@
+name: reviewdog
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  reviewdog-black:
+    name: reviewdog-black
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: pip install black==23.1.0
+      - uses: reviewdog/action-black@v3
+        with:
+          github_token: ${{ secrets.github_token }}
+          filter_mode: nofilter

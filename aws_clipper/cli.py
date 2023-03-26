@@ -1,12 +1,10 @@
 from __future__ import annotations
 
+import argparse
+import sys
 
-def main() -> None:
-    import argparse
-    import sys
 
-    from . import convert
-
+def cli_main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(prog="aws-clipper", description="Dump AWS CLI config from a simple YAML file.")
     parser.add_argument(
         "input",
@@ -25,9 +23,16 @@ def main() -> None:
         default=sys.stdout,
         help="output config file",
     )
-    args = parser.parse_args(sys.argv[1:])
+    args = parser.parse_args(argv)
+
+    from . import convert
 
     convert(args.input, args.output)
+    return 0
+
+
+def main() -> None:  # pragma: no cover
+    sys.exit(cli_main(sys.argv[1:]))
 
 
 if __name__ == "__main__":

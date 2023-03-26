@@ -67,5 +67,6 @@ source = ['aws_clipper']
 
 [tool.coverage.report]
 exclude_lines = [
+    'pragma: no cover',
     '''if __name__ == ['"]__main__['"]'''  # exclude main functions
 ]

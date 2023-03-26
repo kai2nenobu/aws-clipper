@@ -1,3 +1,3 @@
-# AWS CLI config dumper
+# aws-clipper
 
-Dump AWS CLI config from YAML file.
+`aws-clipper` dumps AWS CLI config from a simple YAML file.

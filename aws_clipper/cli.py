@@ -4,8 +4,15 @@ import argparse
 import sys
 
 
+def _print_version() -> None:
+    from . import __version__
+
+    print(__version__)
+
+
 def cli_main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(prog="aws-clipper", description="Dump AWS CLI config from a simple YAML file.")
+    parser.add_argument("--version", action="store_true", help="show version")
     parser.add_argument(
         "input",
         metavar="FILE",
@@ -24,6 +31,9 @@ def cli_main(argv: list[str]) -> int:
         help="output config file",
     )
     args = parser.parse_args(argv)
+    if args.version:
+        _print_version()
+        return 0
 
     from . import convert
 

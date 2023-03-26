@@ -4,6 +4,8 @@ from typing import Any, TextIO
 
 import yaml
 
+__version__ = "0.1.0"
+
 
 def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str, Any]:
     return {k: v.format(**variables) if isinstance(v, str) else v for k, v in dic.items() if v is not None}

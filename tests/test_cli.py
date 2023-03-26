@@ -10,3 +10,12 @@ def test_empty_input(capsys: CaptureFixture[str]) -> None:
     cli_main([str(empty_input)])
     out, _ = capsys.readouterr()
     assert out == ""
+
+
+def test_version(capsys: CaptureFixture[str]) -> None:
+    cli_main(["--version"])
+    out, _ = capsys.readouterr()
+
+    from aws_clipper import __version__
+
+    assert __version__ in out

@@ -1,0 +1,21 @@
+default:
+  region: us-east-1
+profiles:
+  prof1:
+    region:
+  prof2:
+    region: null
+  prof3:
+    region: ~
+groups:
+  group1:
+    default:
+      region: us-east-2
+    profiles:
+      group1-prof1:
+        region:
+  group2:
+    default:
+      region:
+    profiles:
+      group2-prof1:

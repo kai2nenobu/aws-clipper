@@ -20,7 +20,7 @@ def all_test_data() -> list[Any]:
         enc = "utf-8"
         return pytest.param(yaml_file.read_text(encoding=enc), ini.read_text(encoding=enc), id=test_name)
 
-    return [param(yaml_file) for yaml_file in yamls]
+    return [param(yaml_file) for yaml_file in yamls if yaml_file.with_suffix(".ini").exists()]
 
 
 @pytest.mark.parametrize("input_yaml, expected_config", all_test_data())

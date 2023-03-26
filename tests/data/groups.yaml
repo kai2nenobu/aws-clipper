@@ -1,0 +1,20 @@
+# xox means that global level property exists,
+# group level property doesn't exist and profile level property exists
+default:
+  xxx: global
+  xxo: global
+  xox: global
+  xoo: global
+groups:
+  group1:
+    default:
+      xxx: group
+      xxo: group
+      oxx: group
+      oxo: group
+    profiles:
+      prof1:
+        xxx: profile
+        xox: profile
+        oxx: profile
+        oox: profile

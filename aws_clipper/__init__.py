@@ -17,19 +17,18 @@ def convert(instream: TextIO, outstream: TextIO) -> None:
     profiles = {}
     for name, prof in config.get("profiles", {}).items():
         prof = {} if prof is None else prof
-        target_profiles = prof.pop("target_profiles", {})
-        target_profile_default = prof.pop("target_profile_default", {})
         merged_prof = {**default_settings, **prof}
         profiles[name] = _subst_variables(merged_prof, {"profile": name})
-        for target_name, target_prof in target_profiles.items():
-            target_prof = {} if target_prof is None else target_prof
-            merged_target_prof = {
+    for _, group_config in config.get("groups", {}).items():
+        group_default = group_config.get("default", {})
+        for name, prof in group_config.get("profiles", {}).items():
+            prof = {} if prof is None else prof
+            merged_prof = {
                 **default_settings,
-                **target_profile_default,
-                **{"source_profile": name},
-                **target_prof,
+                **group_default,
+                **prof,
             }
-            profiles[target_name] = _subst_variables(merged_target_prof, {"profile": target_name})
+            profiles[name] = _subst_variables(merged_prof, {"profile": name})
     # print(list(profiles))
     for name, prof in profiles.items():
         prof_name = "[default]" if name == "default" else f"[profile {name}]"

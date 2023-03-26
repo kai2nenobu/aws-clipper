@@ -4,10 +4,11 @@ profiles:
   prof1:
   prof2:
     role_session_name: "prof-level-{profile}-user"
-  prof3:
-    target_profile_default:
-      role_session_name: "assume-role-level-{profile}-user"
-    target_profiles:
-      prof3-1:
-      prof3-2:
+groups:
+  group1:
+    default:
+      role_session_name: "group-level-{profile}-user"
+    profiles:
+      group1-1:
+      group1-2:
         role_session_name: "prof-level-{profile}-user"

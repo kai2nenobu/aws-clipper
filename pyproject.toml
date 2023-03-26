@@ -8,7 +8,7 @@ readme = "README.md"
 packages = [{include = "aws_clipper"}]
 
 [tool.poetry.scripts]
-aws-clipper = 'aws_clipper.__main__:main'
+aws-clipper = 'aws_clipper.cli:main'
 
 [tool.poetry.dependencies]
 python = "^3.7"

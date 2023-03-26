@@ -35,7 +35,7 @@ lint: ## Lint all files
 
 lint-no-reviewdog: ## Lint by linters which is not used with reviewdog in CI
 	@comm -23 <(yq '.repos[].hooks[].id' .pre-commit-config.yaml | sort) \
-	    <(printf "%s\n%s\n%s\n%s\n" black flake8 isort mypy) | xargs -L 1 $(PRE_COMMIT) run --all-files
+	    <(echo black flake8 isort mypy no-commit-to-branch | tr " " "\n") | xargs -L 1 $(PRE_COMMIT) run --all-files
 
 test: ## Test by pytest
 	$(POETRY) run pytest .

@@ -6,7 +6,7 @@ import yaml
 
 
 def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str, Any]:
-    return {k: v.format(**variables) if isinstance(v, str) else v for k, v in dic.items()}
+    return {k: v.format(**variables) if isinstance(v, str) else v for k, v in dic.items() if v is not None}
 
 
 def convert(instream: TextIO, outstream: TextIO) -> None:
@@ -17,19 +17,20 @@ def convert(instream: TextIO, outstream: TextIO) -> None:
     profiles = {}
     for name, prof in config.get("profiles", {}).items():
         prof = {} if prof is None else prof
-        target_profiles = prof.pop("target_profiles", {})
-        target_profile_default = prof.pop("target_profile_default", {})
         merged_prof = {**default_settings, **prof}
         profiles[name] = _subst_variables(merged_prof, {"profile": name})
-        for target_name, target_prof in target_profiles.items():
-            target_prof = {} if target_prof is None else target_prof
-            merged_target_prof = {
+    for group_name, group_config in config.get("groups", {}).items():
+        group_default = group_config.get("default", {})
+        group_profile_name = group_config.get("profile_name", "{name}")
+        for name, prof in group_config.get("profiles", {}).items():
+            prof = {} if prof is None else prof
+            merged_prof = {
                 **default_settings,
-                **target_profile_default,
-                **{"source_profile": name},
-                **target_prof,
+                **group_default,
+                **prof,
             }
-            profiles[target_name] = _subst_variables(merged_target_prof, {"profile": target_name})
+            profile_name = group_profile_name.format(group=group_name, name=name)
+            profiles[profile_name] = _subst_variables(merged_prof, {"profile": name})
     # print(list(profiles))
     for name, prof in profiles.items():
         prof_name = "[default]" if name == "default" else f"[profile {name}]"

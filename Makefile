@@ -26,6 +26,7 @@ help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9%_-]+:.*?## / {printf "    \033[36m%-16s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 setup: ## Configure a local dev environment. Execute once after cloning this repository
+	poetry self add "poetry-dynamic-versioning[plugin]"
 	$(POETRY) install
 	$(PRE_COMMIT) install
 	$(PRE_COMMIT) install-hooks

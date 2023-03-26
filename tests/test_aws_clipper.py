@@ -6,7 +6,7 @@ from typing import Any
 
 import pytest
 
-from awscli_config import convert
+from aws_clipper import convert
 
 
 def all_test_data() -> list[Any]:

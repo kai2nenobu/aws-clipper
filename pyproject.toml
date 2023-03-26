@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "awscli-config"
+name = "aws-clipper"
 version = "0.1.0"
 description = "Dump config for AWS CLI"
 authors = ["Tsunenobu Kai <kai2nenobu@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "awscli_config"}]
+packages = [{include = "aws_clipper"}]
 
 [tool.poetry.scripts]
-awscli-config = 'awscli_config.__main__:main'
+aws-clipper = 'aws_clipper.__main__:main'
 
 [tool.poetry.dependencies]
 python = "^3.7"

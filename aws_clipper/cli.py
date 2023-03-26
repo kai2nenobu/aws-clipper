@@ -16,6 +16,15 @@ def main() -> None:
         default=sys.stdin,
         help="Input YAML file",
     )
+    parser.add_argument(
+        "-o",
+        "--output",
+        metavar="FILE",
+        nargs="?",
+        type=argparse.FileType("w", encoding="utf-8"),
+        default=sys.stdout,
+        help="Output config file",
+    )
     args = parser.parse_args(sys.argv[1:])
 
     convert(args.input, args.output)

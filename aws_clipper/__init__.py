@@ -4,7 +4,8 @@ from typing import Any, TextIO
 
 import yaml
 
-__version__ = "0.1.0"
+# This version is placeholder. The actual version is populated by poetry-dynamic-versioning
+__version__ = "0.0.0"
 
 
 def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str, Any]:

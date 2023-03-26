@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws-clipper"
-version = "0.1.0"
+version = "0.0.0"  # This is placeholder. Version is determined from git tags
 description = "Dump config for AWS CLI"
 authors = ["Tsunenobu Kai <kai2nenobu@gmail.com>"]
 license = "MIT"
@@ -38,9 +38,13 @@ flake8-pyproject = "^1.2.3"
 mypy = "^1.1.1"
 types-pyyaml = "^6.0.12.8"
 
+[tool.poetry-dynamic-versioning]
+enable = true
+bump = true
+
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.black]
 line-length = 120

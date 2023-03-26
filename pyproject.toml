@@ -17,6 +17,7 @@ pyyaml = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.2"
+pytest-cov = "^4.0.0"
 
 
 [tool.poetry.group.lint.dependencies]
@@ -55,3 +56,11 @@ extend-ignore = ['E203']
 [tool.mypy]
 python_version = 3.7
 strict = true
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+addopts = '--cov --cov-report=term --cov-report=xml --cov-report=html'
+
+[tool.coverage.run]
+branch = true
+source = ['aws_clipper']

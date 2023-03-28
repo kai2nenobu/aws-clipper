@@ -33,7 +33,7 @@ def convert(instream: TextIO, outstream: TextIO) -> None:
                 **prof,
             }
             profile_name = group_profile_name.format(group=group_name, name=name)
-            profiles[profile_name] = _subst_variables(merged_prof, {"profile": name})
+            profiles[profile_name] = _subst_variables(merged_prof, {"profile": profile_name})
     # print(list(profiles))
     for name, prof in profiles.items():
         prof_name = "[default]" if name == "default" else f"[profile {name}]"

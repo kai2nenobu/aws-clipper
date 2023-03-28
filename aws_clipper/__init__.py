@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import configparser
 from typing import Any, TextIO
 
 import yaml
@@ -34,10 +35,9 @@ def convert(instream: TextIO, outstream: TextIO) -> None:
             }
             profile_name = group_profile_name.format(group=group_name, name=name)
             profiles[profile_name] = _subst_variables(merged_prof, {"profile": profile_name})
-    # print(list(profiles))
+    # output with ini format
+    config = configparser.ConfigParser()
     for name, prof in profiles.items():
-        prof_name = "[default]" if name == "default" else f"[profile {name}]"
-        outstream.write(prof_name + "\n")
-        for k, v in prof.items():
-            outstream.write(f"{k} = {v}\n")
-        outstream.write("\n")
+        section_name = "default" if name == "default" else f"profile {name}"
+        config[section_name] = prof
+    config.write(outstream)

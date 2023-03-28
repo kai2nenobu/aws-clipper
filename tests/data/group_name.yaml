@@ -3,4 +3,6 @@ groups:
     profile_name: "{group}-{name}"
     profiles:
       prof1:
+        description: "profile for {profile}"
       prof2:
+        description: "profile for {profile}"

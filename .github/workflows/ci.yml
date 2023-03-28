@@ -29,6 +29,7 @@ jobs:
           python-version: "${{ matrix.PYTHON }}"
       - name: Install poetry
         uses: snok/install-poetry@v1
+      - run: poetry self add poetry-dynamic-versioning
       - name: Install dependencies
         run: poetry install --without lint
       - name: Test

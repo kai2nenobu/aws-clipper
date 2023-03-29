@@ -9,13 +9,29 @@ import yaml
 __version__ = "0.0.0"
 
 
-def _expand_value(value: Any, variables: dict[str, Any] = {}) -> str:
-    if isinstance(value, str):
-        return value.format(**variables)
-    elif isinstance(value, bool):
-        return str(value).lower()
+def _expand_value(v: Any, variables: dict[str, Any] = {}) -> str:
+    if isinstance(v, dict):
+        # This doesn't work as AWS CLI config
+        #
+        # [default]
+        # s3 = max_concurrent_requests = 20
+        #     max_queue_size = 10000
+        #
+        # This does work
+        #
+        # [default]
+        # s3 =
+        #     max_concurrent_requests = 20
+        #     max_queue_size = 10000
+        #
+        # So, insert newline at beginning of multiline string
+        return "".join([f"\n{subkey} = {_expand_value(subvalue, variables)}" for subkey, subvalue in v.items()])
+    elif isinstance(v, str):
+        return v.format(**variables)
+    elif isinstance(v, bool):
+        return str(v).lower()
     else:
-        return str(value)
+        return str(v)
 
 
 def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str, Any]:

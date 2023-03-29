@@ -1,3 +1,6 @@
+default:
+  s3:
+    max_concurrent_requests: 25
 profiles:
   development:
     s3:
@@ -8,4 +11,6 @@ profiles:
       max_bandwidth: 50MB/s
       use_accelerate_endpoint: true
       addressing_style: path
-
+  production:
+    s3:
+      max_queue_size: 12000

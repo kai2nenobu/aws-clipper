@@ -9,8 +9,17 @@ import yaml
 __version__ = "0.0.0"
 
 
+def _expand_value(value: Any, variables: dict[str, Any] = {}) -> str:
+    if isinstance(value, str):
+        return value.format(**variables)
+    elif isinstance(value, bool):
+        return str(value).lower()
+    else:
+        return str(value)
+
+
 def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str, Any]:
-    return {k: v.format(**variables) if isinstance(v, str) else v for k, v in dic.items() if v is not None}
+    return {k: _expand_value(v, variables) for k, v in dic.items() if v is not None}
 
 
 def convert(instream: TextIO, outstream: TextIO) -> None:

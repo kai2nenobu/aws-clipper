@@ -1,0 +1,7 @@
+profiles:
+  default:
+    str: some string
+    empty: ""
+    int: 1024
+    bool: true
+    null: null

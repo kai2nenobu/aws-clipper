@@ -34,6 +34,9 @@ setup: ## Configure a local dev environment. Execute once after cloning this rep
 lint: ## Lint all files
 	$(PRE_COMMIT) run --all-files
 
+pre-commit-%: ## Run a specific pre-commit hook
+	$(PRE_COMMIT) run --all-files $*
+
 lint-no-reviewdog: ## Lint by linters which is not used with reviewdog in CI
 	@comm -23 <(yq '.repos[].hooks[].id' .pre-commit-config.yaml | sort) \
 	    <(echo black flake8 isort mypy no-commit-to-branch | tr " " "\n") | xargs -L 1 $(PRE_COMMIT) run --all-files

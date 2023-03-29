@@ -10,22 +10,20 @@ __version__ = "0.0.0"
 
 
 def _expand_value(v: Any, variables: dict[str, Any] = {}) -> str:
+    """
+    In AWS CLI config, nested settings (like S3 settings) are indented as below.
+
+    [default]
+    s3 =
+        max_concurrent_requests = 20
+        max_queue_size = 10000
+
+    So, insert a newline at beginning of multiline string in this function.
+    """
     if isinstance(v, dict):
-        # This doesn't work as AWS CLI config
-        #
-        # [default]
-        # s3 = max_concurrent_requests = 20
-        #     max_queue_size = 10000
-        #
-        # This does work
-        #
-        # [default]
-        # s3 =
-        #     max_concurrent_requests = 20
-        #     max_queue_size = 10000
-        #
-        # So, insert newline at beginning of multiline string
-        return "".join([f"\n{subkey} = {_expand_value(subvalue, variables)}" for subkey, subvalue in v.items()])
+        return "\n" + "\n".join([f"{subkey} = {_expand_value(subvalue, variables)}" for subkey, subvalue in v.items()])
+    if isinstance(v, list):
+        return "\n" + "\n".join(v)
     elif isinstance(v, str):
         return v.format(**variables)
     elif isinstance(v, bool):
@@ -40,7 +38,7 @@ def _subst_variables(dic: dict[str, Any], variables: dict[str, Any]) -> dict[str
 
 def _deep_merge(*dicts: dict[Any, Any]) -> dict[Any, Any]:
     """Merge multiple dictionaries deeply."""
-    merged = {}
+    merged: dict[Any, Any] = {}
     for dic in dicts:
         for k, v in dic.items():
             current_v = merged.get(k)

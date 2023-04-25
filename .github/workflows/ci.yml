@@ -57,3 +57,8 @@ jobs:
         run: pyinstaller ./bin/aws-clipper.py --onefile
       - name: Run executable
         run: ./dist/aws-clipper --version
+      - run: ls -alh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "pyinstaller-${{ matrix.OS }}"
+          path: dist

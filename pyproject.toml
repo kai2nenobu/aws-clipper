@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws-clipper"
-version = "0.0.0"  # This is placeholder. Version is determined from git tags
+version = "0.0.4"
 description = "Dump config for AWS CLI"
 authors = ["Tsunenobu Kai <kai2nenobu@gmail.com>"]
 license = "MIT"

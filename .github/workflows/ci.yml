@@ -38,7 +38,7 @@ jobs:
     runs-on: "${{ matrix.OS }}"
     strategy:
       matrix:
-        OS: [ubuntu-22.04, windows-2022]
+        OS: [ubuntu-22.04, macos-12, windows-2022]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3

@@ -7,7 +7,8 @@ import sys
 def _print_version() -> None:
     from . import __version__
 
-    print(__version__)
+    print(f"aws-clipper: {__version__}")
+    print(f"python: {sys.version}")
 
 
 def cli_main(argv: list[str]) -> int:

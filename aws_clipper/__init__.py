@@ -5,8 +5,7 @@ from typing import Any, TextIO
 
 import yaml
 
-# This version is placeholder. The actual version is populated by poetry-dynamic-versioning
-__version__ = "0.0.0"
+__version__ = "0.0.4"
 
 
 def _expand_value(v: Any, variables: dict[str, Any] = {}) -> str:

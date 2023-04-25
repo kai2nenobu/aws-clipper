@@ -51,7 +51,7 @@ jobs:
           python-version: "3.11"
       - name: Install pyinstaller
         run: >-
-          pipx install --python '${{ steps.cp310.outputs.python-path }}' pyinstaller
+          pipx install --python '${{ steps.cp311.outputs.python-path }}' pyinstaller
           && pipx inject pyinstaller .
       - name: Build a single executable
         run: pyinstaller ./bin/aws-clipper.py --onefile

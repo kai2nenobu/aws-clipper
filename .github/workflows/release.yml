@@ -21,9 +21,6 @@ jobs:
       - name: Install poetry plugins
         run: poetry self add poetry-dynamic-versioning
       - name: Build and publish
-        run: |
-          poetry config repositories.testpypi "$TESTPYPI_URL"
-          poetry publish --build --repository testpypi
+        run: poetry publish --build
         env:
-          TESTPYPI_URL: https://test.pypi.org/legacy/
-          POETRY_PYPI_TOKEN_TESTPYPI: "${{ secrets.PYPI_TOKEN }}"
+          POETRY_PYPI_TOKEN_PYPI: "${{ secrets.PYPI_TOKEN }}"

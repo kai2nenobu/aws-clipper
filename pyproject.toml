@@ -41,6 +41,8 @@ types-pyyaml = "^6.0.12.8"
 [tool.poetry-dynamic-versioning]
 enable = true
 bump = true
+[tool.poetry-dynamic-versioning.substitution]
+files = ["src/aws_clipper/__init__.py"]
 
 [build-system]
 requires = ["poetry-core", "poetry-dynamic-versioning"]

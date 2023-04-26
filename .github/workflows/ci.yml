@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 defaults:
   run:
@@ -65,3 +65,13 @@ jobs:
         with:
           name: "pyinstaller-${{ matrix.OS }}"
           path: dist/aws-clipper*
+      - name: Upload an executable as release assets for test
+        run: gh release upload test-release dist/aws-clipper.exe#aws-clipper.${{ matrix.OS }}.exe --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        if: runner.os == 'Windows'
+      - name: Upload an executable as release assets for test
+        run: gh release upload test-release dist/aws-clipper#aws-clipper.${{ matrix.OS }} --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        if: runner.os != 'Windows'

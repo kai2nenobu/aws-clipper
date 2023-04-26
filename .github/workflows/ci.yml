@@ -54,11 +54,7 @@ jobs:
           pipx install --python '${{ steps.cp311.outputs.python-path }}' pyinstaller
           && pipx inject pyinstaller .
       - name: Build a single executable
-        run: pyinstaller ./bin/aws-clipper.py --onefile
-        if: runner.os != 'Linux'
-      - name: Build a single executable
-        run: pyinstaller ./bin/aws-clipper.py --onefile --strip
-        if: runner.os == 'Linux'
+        run: make build-exe
       - name: Run executable
         run: ./dist/aws-clipper --version
       - uses: actions/upload-artifact@v3

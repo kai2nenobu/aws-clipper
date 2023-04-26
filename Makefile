@@ -43,3 +43,12 @@ lint-no-reviewdog: ## Lint by linters which is not used with reviewdog in CI
 
 test: ## Test by pytest
 	$(POETRY) run pytest .
+
+PYINSTALLER = pyinstaller
+PYINSTALLER_FLAGS = --onefile
+UNAME := $(shell uname -s)
+ifeq ($(UNAME), Linux)
+	PYINSTALLER_FLAGS += --strip
+endif
+build-exe: ## Build a single executable by pyinstaller
+	$(PYINSTALLER) ./bin/aws-clipper.py $(PYINSTALLER_FLAGS)

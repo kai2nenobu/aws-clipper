@@ -38,7 +38,13 @@ jobs:
     runs-on: "${{ matrix.OS }}"
     strategy:
       matrix:
-        OS: [ubuntu-22.04, macos-12, windows-2022]
+        include:
+          - OS: ubuntu-22.04
+            ARCH: linux-amd64
+          - OS: macos-12
+            ARCH: darwin-amd64
+          - OS: windows-2022
+            ARCH: windows-amd64
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
@@ -62,12 +68,9 @@ jobs:
           name: "pyinstaller-${{ matrix.OS }}"
           path: dist/aws-clipper*
       - name: Upload an executable as release assets for test
-        run: gh release upload test-release dist/aws-clipper.exe#aws-clipper.${{ matrix.OS }}.exe --clobber
+        run: make upload-exe
         env:
+          TAG_NAME: test-release
+          EXECUTABLE_SUFFIX: ${{ matrix.arch }}
+          UPLOAD_FLAGS: --clobber
           GITHUB_TOKEN: ${{ secrets.github_token }}
-        if: runner.os == 'Windows'
-      - name: Upload an executable as release assets for test
-        run: gh release upload test-release dist/aws-clipper#aws-clipper.${{ matrix.OS }} --clobber
-        env:
-          GITHUB_TOKEN: ${{ secrets.github_token }}
-        if: runner.os != 'Windows'

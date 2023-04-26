@@ -7,7 +7,12 @@ import sys
 def _print_version() -> None:
     from . import __version__
 
-    print(__version__)
+    py_version = sys.version_info
+    versions = {
+        "aws-clipper": __version__,
+        "Python": f"{py_version.major}.{py_version.minor}.{py_version.micro}",
+    }
+    print(" ".join([f"{k}/{v}" for k, v in versions.items()]))
 
 
 def cli_main(argv: list[str]) -> int:

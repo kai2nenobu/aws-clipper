@@ -34,3 +34,36 @@ jobs:
         run: poetry install --without lint
       - name: Test
         run: make test
+  pyinstaller:
+    runs-on: "${{ matrix.OS }}"
+    strategy:
+      matrix:
+        include:
+          - OS: ubuntu-22.04
+            ARCH: linux-amd64
+          - OS: macos-12
+            ARCH: darwin-amd64
+          - OS: windows-2022
+            ARCH: windows-amd64
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Use Python 3.11
+        uses: actions/setup-python@v4
+        id: cp311
+        with:
+          python-version: "3.11"
+      - name: Install pyinstaller
+        run: >-
+          pipx install --python '${{ steps.cp311.outputs.python-path }}' pyinstaller
+          && pipx inject pyinstaller .
+      - name: Build a single executable
+        run: make build-exe
+      - name: Run executable
+        run: ./dist/aws-clipper --version
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "exe-${{ matrix.ARCH }}"
+          path: dist/aws-clipper*

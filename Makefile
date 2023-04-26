@@ -43,3 +43,23 @@ lint-no-reviewdog: ## Lint by linters which is not used with reviewdog in CI
 
 test: ## Test by pytest
 	$(POETRY) run pytest .
+
+PYINSTALLER = pyinstaller
+PYINSTALLER_FLAGS = --onefile
+UNAME := $(shell uname -s)
+ifeq ($(UNAME), Linux)
+	PYINSTALLER_FLAGS += --strip
+endif
+build-exe: ## Build a single executable by pyinstaller
+	$(PYINSTALLER) ./bin/aws-clipper.py $(PYINSTALLER_FLAGS)
+
+EXECUTABLE_NAME = aws-clipper
+UPLOAD_NAME = aws-clipper-$(EXECUTABLE_SUFFIX)
+ifeq ($(OS), Windows_NT)
+	EXECUTABLE_NAME = aws-clipper.exe
+	UPLOAD_NAME = aws-clipper-$(EXECUTABLE_SUFFIX).exe
+endif
+upload-exe: ## Upload a single executable to GitHub release assets
+# Rename executable
+	mv dist/$(EXECUTABLE_NAME) dist/$(UPLOAD_NAME)
+	gh release upload $(TAG_NAME) dist/$(UPLOAD_NAME) $(UPLOAD_FLAGS)

@@ -1,11 +1,19 @@
 [tool.poetry]
 name = "aws-clipper"
 version = "0.0.6"
-description = "Dump config for AWS CLI"
-authors = ["Tsunenobu Kai <kai2nenobu@gmail.com>"]
+description = "`aws-clipper` dumps AWS CLI config from a simple YAML file."
+authors = ["kai2nenobu <kai2nenobu@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "aws_clipper", from = "src"}]
+homepage = "https://github.com/kai2nenobu/aws-clipper"
+repository = "https://github.com/kai2nenobu/aws-clipper"
+keywords = ["aws"]
+include = ["README.md", "CHANGELOG.md"]
+
+[tool.poetry.urls]
+"Changelog" = "https://github.com/kai2nenobu/aws-clipper/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/kai2nenobu/aws-clipper/issues"
 
 [tool.poetry.scripts]
 aws-clipper = 'aws_clipper.cli:main'

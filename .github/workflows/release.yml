@@ -5,10 +5,11 @@ on:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  release:
+  publish:
+    name: Publish ${{ github.event.tag_name }} to PyPI
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -24,3 +25,40 @@ jobs:
         run: poetry publish --build
         env:
           POETRY_PYPI_TOKEN_PYPI: "${{ secrets.PYPI_TOKEN }}"
+  pyinstaller:
+    needs: [publish]
+    runs-on: "${{ matrix.OS }}"
+    strategy:
+      matrix:
+        include:
+          - OS: ubuntu-22.04
+            ARCH: linux-amd64
+          - OS: macos-12
+            ARCH: darwin-amd64
+          - OS: windows-2022
+            ARCH: windows-amd64
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Use latest stable Python
+        uses: actions/setup-python@v4
+        id: cp311
+        with:
+          python-version: "3.11"
+      - name: Install pyinstaller & aws-clipper
+        run: >-
+          version=$(echo '${{ github.event.tag_name }}' | sed 's/^v//')
+          && pipx install --python '${{ steps.cp311.outputs.python-path }}' pyinstaller
+          && pipx inject pyinstaller "aws-clipper==$version"
+      - name: Build a single executable
+        run: make build-exe
+      - name: Run executable
+        run: ./dist/aws-clipper --version
+      - name: Upload an executable as release assets
+        run: make upload-exe
+        env:
+          TAG_NAME: ${{ github.event.tag_name }}
+          EXECUTABLE_SUFFIX: ${{ matrix.ARCH }}
+          GITHUB_TOKEN: ${{ secrets.github_token }}

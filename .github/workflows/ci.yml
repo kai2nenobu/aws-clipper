@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
 defaults:
   run:
@@ -65,12 +65,5 @@ jobs:
         run: ./dist/aws-clipper --version
       - uses: actions/upload-artifact@v3
         with:
-          name: "pyinstaller-${{ matrix.OS }}"
+          name: "exe-${{ matrix.ARCH }}"
           path: dist/aws-clipper*
-      - name: Upload an executable as release assets for test
-        run: make upload-exe
-        env:
-          TAG_NAME: test-release
-          EXECUTABLE_SUFFIX: ${{ matrix.arch }}
-          UPLOAD_FLAGS: --clobber
-          GITHUB_TOKEN: ${{ secrets.github_token }}

@@ -55,12 +55,10 @@ build-exe: ## Build a single executable by pyinstaller
 
 EXECUTABLE_NAME = aws-clipper
 UPLOAD_NAME = aws-clipper-$(EXECUTABLE_SUFFIX)
-UPLOAD_FLAGS =
 ifeq ($(OS), Windows_NT)
 	EXECUTABLE_NAME = aws-clipper.exe
 	UPLOAD_NAME = aws-clipper-$(EXECUTABLE_SUFFIX).exe
 endif
-
 upload-exe: ## Upload a single executable to GitHub release assets
 # Rename executable
 	mv dist/$(EXECUTABLE_NAME) dist/$(UPLOAD_NAME)

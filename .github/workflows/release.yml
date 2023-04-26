@@ -7,9 +7,13 @@ on:
 permissions:
   contents: write
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   publish:
-    name: Publish ${{ github.event.tag_name }} to PyPI
+    name: Publish ${{ github.event.release.tag_name }} to PyPI
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -49,7 +53,7 @@ jobs:
           python-version: "3.11"
       - name: Install pyinstaller & aws-clipper
         run: >-
-          version=$(echo '${{ github.event.tag_name }}' | sed 's/^v//')
+          version=$(echo '${{ github.event.release.tag_name }}' | sed 's/^v//')
           && pipx install --python '${{ steps.cp311.outputs.python-path }}' pyinstaller
           && pipx inject pyinstaller "aws-clipper==$version"
       - name: Build a single executable
@@ -59,6 +63,6 @@ jobs:
       - name: Upload an executable as release assets
         run: make upload-exe
         env:
-          TAG_NAME: ${{ github.event.tag_name }}
+          TAG_NAME: ${{  github.event.release.tag_name }}
           EXECUTABLE_SUFFIX: ${{ matrix.ARCH }}
           GITHUB_TOKEN: ${{ secrets.github_token }}

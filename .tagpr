@@ -39,4 +39,4 @@
 [tagpr]
 	vPrefix = true
 	releaseBranch = main
-	versionFile = pyproject.toml, src/aws_clipper/__init__.py
+	versionFile = pyproject.toml, README.md, src/aws_clipper/__init__.py

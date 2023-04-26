@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.7](https://github.com/kai2nenobu/aws-clipper/compare/v0.0.6...v0.0.7) - 2023-04-26
+- Enrich project info by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/28
+
 ## [v0.0.6](https://github.com/kai2nenobu/aws-clipper/compare/v0.0.5...v0.0.6) - 2023-04-26
 - Use src layout for a project structure by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/25
 - Build single executables by PyInstaller by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/24

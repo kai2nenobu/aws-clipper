@@ -55,6 +55,10 @@ jobs:
           && pipx inject pyinstaller .
       - name: Build a single executable
         run: pyinstaller ./bin/aws-clipper.py --onefile
+        if: runner.os != 'Linux'
+      - name: Build a single executable
+        run: pyinstaller ./bin/aws-clipper.py --onefile --strip
+        if: runner.os == 'Linux'
       - name: Run executable
         run: ./dist/aws-clipper --version
       - uses: actions/upload-artifact@v3

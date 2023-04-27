@@ -19,21 +19,20 @@ jobs:
     strategy:
       matrix:
         OS: [ubuntu-22.04, macos-12, windows-2022]
-        PYTHON: ["3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
-      - name: Use Python ${{ matrix.PYTHON }}
+      - name: Use Python 3.9
         uses: actions/setup-python@v4
         with:
-          python-version: "${{ matrix.PYTHON }}"
+          python-version: "3.9"
       - name: Install poetry
         uses: snok/install-poetry@v1
       - run: poetry self add poetry-dynamic-versioning
       - name: Install dependencies
-        run: poetry install --without lint
-      - name: Test
-        run: make test
+        run: poetry install --only dev
+      - name: Test by tox
+        run: poetry run tox --skip-missing-interpreters false
   pyinstaller:
     runs-on: "${{ matrix.OS }}"
     strategy:

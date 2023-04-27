@@ -9,7 +9,9 @@ packages = [{include = "aws_clipper", from = "src"}]
 homepage = "https://github.com/kai2nenobu/aws-clipper"
 repository = "https://github.com/kai2nenobu/aws-clipper"
 keywords = ["aws"]
-include = ["README.md", "CHANGELOG.md"]
+include = [
+    { path = "CHANGELOG.md", format = "sdist" }
+]
 
 [tool.poetry.urls]
 "Changelog" = "https://github.com/kai2nenobu/aws-clipper/blob/main/CHANGELOG.md"

@@ -10,3 +10,7 @@
 # aws-clipper
 
 `aws-clipper` dumps AWS CLI config from a simple YAML file.
+
+## License
+
+This project is developed and distributed under MIT license. See [LICENCE](./LICENSE) for more details.

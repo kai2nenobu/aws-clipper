@@ -28,7 +28,10 @@ pyyaml = "^6.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.2"
 pytest-cov = "^4.0.0"
-
+tox = [
+    {version = "^3.20.0", python = "<3.8"},
+    {version = "^4.0.0", python = ">=3.8"}
+]
 
 [tool.poetry.group.lint.dependencies]
 pre-commit = [

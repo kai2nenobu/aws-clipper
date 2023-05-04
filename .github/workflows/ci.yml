@@ -9,10 +9,6 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   test:
     runs-on: "${{ matrix.OS }}"
@@ -39,15 +35,13 @@ jobs:
         with:
           python-version: "3.9"
       - name: Install poetry
-        uses: snok/install-poetry@v1
+        run: pipx install "poetry<2.0"
       - run: poetry self add poetry-dynamic-versioning
       - name: Install dependencies
         run: poetry install --only dev
       - name: Test by tox
         run: |
-          poetry show
-          poetry run tox --version
-          poetry run tox --verbose --skip-missing-interpreters false
+          poetry run tox --skip-missing-interpreters false
   pyinstaller:
     runs-on: "${{ matrix.OS }}"
     strategy:

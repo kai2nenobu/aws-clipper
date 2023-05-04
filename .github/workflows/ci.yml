@@ -40,8 +40,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --only dev
       - name: Test by tox
-        run: |
-          poetry run tox --skip-missing-interpreters false
+        run: poetry run tox --skip-missing-interpreters false
   pyinstaller:
     runs-on: "${{ matrix.OS }}"
     strategy:

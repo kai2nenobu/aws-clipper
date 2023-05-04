@@ -9,31 +9,40 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   test:
     runs-on: "${{ matrix.OS }}"
     strategy:
       matrix:
         OS: [ubuntu-22.04, macos-12, windows-2022]
-        PYTHON: ["3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
-      - name: Use Python ${{ matrix.PYTHON }}
-        uses: actions/setup-python@v4
+      # Set up multiple python versions
+      - uses: actions/setup-python@v4
         with:
-          python-version: "${{ matrix.PYTHON }}"
+          python-version: "3.7"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Use Python 3.9
+        uses: actions/setup-python@v4
+        id: cp39
+        with:
+          python-version: "3.9"
       - name: Install poetry
-        uses: snok/install-poetry@v1
+        run:  pipx install --python '${{ steps.cp39.outputs.python-path }}' "poetry<2.0"
       - run: poetry self add poetry-dynamic-versioning
       - name: Install dependencies
-        run: poetry install --without lint
-      - name: Test
-        run: make test
+        run: poetry install --only dev
+      - name: Test by tox
+        run: poetry run tox --skip-missing-interpreters false
   pyinstaller:
     runs-on: "${{ matrix.OS }}"
     strategy:

@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.9"
       - name: Install poetry
-        uses: snok/install-poetry@v1
+        run: pipx install "poetry<2.0"
       - name: Install poetry plugins
         run: poetry self add poetry-dynamic-versioning
       - name: Build and publish

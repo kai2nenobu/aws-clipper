@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.7"
       - name: Install poetry
-        uses: snok/install-poetry@v1
+        run: pipx install "poetry<2.0"
       - name: Install dependencies
         run: poetry install
       - name: Create wrapper scripts to launch linter via poetry

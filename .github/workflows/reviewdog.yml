@@ -15,16 +15,18 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - name: Use Python 3.7
+      - name: Use Python 3.9
         uses: actions/setup-python@v4
+        id: cp39
         with:
-          python-version: "3.7"
+          python-version: "3.9"
       - name: Install poetry
-        run: pipx install "poetry<2.0"
+        run: pipx install --python '${{ steps.cp39.outputs.python-path }}' "poetry<2.0"
       - name: Install dependencies
         run: poetry install
       - name: Create wrapper scripts to launch linter via poetry
         run: |
+          mkdir -p ~/.local/bin/
           for linter in black isort flake8 mypy; do
             printf '#!/bin/sh\npoetry run %s "$@"\n' "$linter" | tee ~/.local/bin/$linter
             chmod 755 ~/.local/bin/$linter

@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.0.8](https://github.com/kai2nenobu/aws-clipper/compare/v0.0.7...v0.0.8) - 2023-05-04
+- Add MIT license file by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/31
+- Test multiple versions by tox by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/33
+
 ## [v0.0.7](https://github.com/kai2nenobu/aws-clipper/compare/v0.0.6...v0.0.7) - 2023-04-26
 - Enrich project info by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/28
 

@@ -21,34 +21,22 @@ include = [
 aws-clipper = 'aws_clipper.cli:main'
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.8.1"
 pyyaml = "^6.0"
 
 
 [tool.poetry.group.dev.dependencies]
-tox = [
-    {version = "^3.20.0", python = "<3.8"},
-    {version = "^4.0.0", python = ">=3.8"}
-]
+tox = "^4.0.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.2"
 pytest-cov = "^4.0.0"
 
 [tool.poetry.group.lint.dependencies]
-pre-commit = [
-    {version = "^2.21.0", python = "<3.8"},
-    {version = "^3.2.0", python = ">=3.8"}
-]
+pre-commit = "^3.2.0"
 black = "^23.1.0"
-isort = [
-    {version = "~5.11.5", python = "<3.8", extras = ["colors"]},
-    {version = "^5.11.5", python = ">=3.8", extras = ["colors"]}
-]
-flake8 = [
-    {version = "^5.0.4", python = "<3.8"},
-    {version = "^6.0.0", python = ">=3.8.1"}
-]
+isort = {version = "^5.11.5", extras = ["colors"]}
+flake8 = "^6.0.0"
 flake8-pyproject = "^1.2.3"
 mypy = "^1.1.1"
 types-pyyaml = "^6.0.12.8"
@@ -75,7 +63,7 @@ max-line-length = 120
 extend-ignore = ['E203']
 
 [tool.mypy]
-python_version = 3.7
+python_version = "3.8"
 strict = true
 
 [tool.pytest.ini_options]

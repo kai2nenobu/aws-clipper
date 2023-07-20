@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.0](https://github.com/kai2nenobu/aws-clipper/compare/v0.0.8...v0.1.0) - 2023-07-20
+- Drop python 3.7 by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/41
+
 ## [v0.0.8](https://github.com/kai2nenobu/aws-clipper/compare/v0.0.7...v0.0.8) - 2023-05-04
 - Add MIT license file by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/31
 - Test multiple versions by tox by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/33

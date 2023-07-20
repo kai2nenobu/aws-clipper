@@ -12,6 +12,11 @@ keywords = ["aws"]
 include = [
     { path = "CHANGELOG.md", format = "sdist" }
 ]
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "Intended Audience :: Developers",
+    "Development Status :: 3 - Alpha"
+]
 
 [tool.poetry.urls]
 "Changelog" = "https://github.com/kai2nenobu/aws-clipper/blob/main/CHANGELOG.md"

@@ -17,7 +17,7 @@ jobs:
         OS: [ubuntu-22.04, macos-12, windows-2022]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # Set up multiple python versions
       - uses: actions/setup-python@v4
         with:
@@ -53,7 +53,7 @@ jobs:
             ARCH: windows-amd64
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Use Python 3.11

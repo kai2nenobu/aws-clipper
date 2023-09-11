@@ -16,7 +16,7 @@ jobs:
     name: Publish ${{ github.event.release.tag_name }} to PyPI
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Python 3.9
         uses: actions/setup-python@v4
         id: cp39
@@ -44,7 +44,7 @@ jobs:
             ARCH: windows-amd64
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Use latest stable Python

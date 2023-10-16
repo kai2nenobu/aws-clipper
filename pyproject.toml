@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aws-clipper"
-version = "0.1.0"
+version = "0.1.1"
 description = "`aws-clipper` dumps AWS CLI config from a simple YAML file."
 authors = ["kai2nenobu <kai2nenobu@gmail.com>"]
 license = "MIT"

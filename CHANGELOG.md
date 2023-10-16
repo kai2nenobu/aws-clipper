@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.1.1](https://github.com/kai2nenobu/aws-clipper/compare/v0.1.0...v0.1.1) - 2023-10-16
+- build(deps-dev): bump flake8 from 6.0.0 to 6.1.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/45
+- build(deps-dev): bump tox from 4.6.4 to 4.8.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/47
+- build(deps-dev): bump mypy from 1.4.1 to 1.5.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/46
+- build(deps-dev): bump types-pyyaml from 6.0.12.10 to 6.0.12.11 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/43
+- build(deps-dev): bump tox from 4.8.0 to 4.9.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/50
+- build(deps-dev): bump mypy from 1.5.0 to 1.5.1 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/49
+- build(deps-dev): bump tox from 4.9.0 to 4.10.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/51
+- build(deps-dev): bump pre-commit from 3.3.3 to 3.5.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/61
+- build(deps-dev): bump tox from 4.10.0 to 4.11.3 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/58
+- build(deps-dev): bump black from 23.7.0 to 23.9.1 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/57
+- build(deps-dev): bump pytest from 7.4.0 to 7.4.2 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/59
+- build(deps-dev): bump types-pyyaml from 6.0.12.11 to 6.0.12.12 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/60
+- build(deps): bump tibdex/github-app-token from 1 to 2 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/56
+- build(deps): bump actions/checkout from 3 to 4 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/55
+
 ## [v0.1.0](https://github.com/kai2nenobu/aws-clipper/compare/v0.0.8...v0.1.0) - 2023-07-20
 - Drop python 3.7 by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/41
 

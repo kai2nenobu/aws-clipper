@@ -69,7 +69,7 @@ jobs:
         run: make build-exe
       - name: Run executable
         run: ./dist/aws-clipper --version
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "exe-${{ matrix.ARCH }}"
           path: dist/aws-clipper*

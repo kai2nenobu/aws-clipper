@@ -52,7 +52,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1          
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
   pyinstaller:
-    needs: [publish]
+    needs: [build]
     runs-on: "${{ matrix.OS }}"
     strategy:
       matrix:
@@ -66,8 +66,9 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
-          fetch-depth: 0
+          name: package
       - name: Use latest stable Python
         uses: actions/setup-python@v5
         id: cp311
@@ -77,7 +78,7 @@ jobs:
         run: >-
           version=$(echo '${{ github.event.release.tag_name }}' | sed 's/^v//')
           && pipx install --python '${{ steps.cp311.outputs.python-path }}' pyinstaller
-          && pipx inject pyinstaller "aws-clipper==$version"
+          && pipx inject pyinstaller dist/aws_clipper*.whl
       - name: Build a single executable
         run: make build-exe
       - name: Run executable

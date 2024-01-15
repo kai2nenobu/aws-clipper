@@ -45,7 +45,9 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [build]
     if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
-    environment: pypi
+    environment:
+      name: pypi
+      url: https://pypi.org/project/aws-clipper/
     permissions:
       id-token: write # mandatory for trusted publishing
     steps:

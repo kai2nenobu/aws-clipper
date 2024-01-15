@@ -18,23 +18,17 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      # Set up multiple python versions
       - uses: actions/setup-python@v5
+        id: setup-python
         with:
-          python-version: "3.8"
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Use Python 3.9
-        uses: actions/setup-python@v5
-        id: cp39
-        with:
-          python-version: "3.9"
+          # Set up multiple python versions
+          python-version: |
+            3.8
+            3.10
+            3.11
+            3.9
       - name: Install poetry
-        run:  pipx install --python '${{ steps.cp39.outputs.python-path }}' "poetry<2.0"
+        run:  pipx install --python '${{ steps.setup-python.outputs.python-path }}' "poetry<2.0"
       - run: poetry self add poetry-dynamic-versioning
       - name: Install dependencies
         run: poetry install --only dev

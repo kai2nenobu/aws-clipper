@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use Python 3.9
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         id: cp39
         with:
           python-version: "3.9"
@@ -52,7 +52,7 @@ jobs:
           github_token: ${{ secrets.github_token }}
           filter_mode: nofilter
       - name: mypy
-        uses: tsuyoshicho/action-mypy@v3
+        uses: tsuyoshicho/action-mypy@v4
         with:
           github_token: ${{ secrets.github_token }}
           filter_mode: nofilter

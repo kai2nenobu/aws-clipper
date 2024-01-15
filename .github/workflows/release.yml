@@ -22,7 +22,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 100
-          fetch-tags: true
+          # When event is 'release', fetching tag is not required
+          fetch-tags: ${{ github.event_name != 'release' }}
       - name: Use Python 3.9
         uses: actions/setup-python@v5
         id: cp39

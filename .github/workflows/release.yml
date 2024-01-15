@@ -20,6 +20,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          depth: 0
       - name: Use Python 3.9
         uses: actions/setup-python@v5
         id: cp39

@@ -12,8 +12,8 @@ defaults:
     shell: bash
 
 jobs:
-  publish:
-    name: Publish ${{ github.event.release.tag_name }} to PyPI
+  build:
+    name: Build a package
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -26,10 +26,26 @@ jobs:
         run: pipx install --python '${{ steps.cp39.outputs.python-path }}' "poetry<2.0"
       - name: Install poetry plugins
         run: poetry self add poetry-dynamic-versioning
-      - name: Build and publish
-        run: poetry publish --build
-        env:
-          POETRY_PYPI_TOKEN_PYPI: "${{ secrets.PYPI_TOKEN }}"
+      - name: Build
+        run: poetry build
+      - name: Archive a package
+        uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: dist/
+  publish:
+    name: Publish a package to PyPI
+    runs-on: ubuntu-22.04
+    needs: [build]
+    environment: pypi
+    permissions:
+      id-token: write # mandatory for trusted publishing
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: package
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1          
   pyinstaller:
     needs: [publish]
     runs-on: "${{ matrix.OS }}"

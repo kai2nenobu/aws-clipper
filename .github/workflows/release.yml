@@ -1,6 +1,10 @@
 name: Release
 
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   release:
     types: [published]
 
@@ -46,6 +50,7 @@ jobs:
           name: package
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1          
+        if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
   pyinstaller:
     needs: [publish]
     runs-on: "${{ matrix.OS }}"
@@ -77,7 +82,12 @@ jobs:
         run: make build-exe
       - name: Run executable
         run: ./dist/aws-clipper --version
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "exe-${{ matrix.ARCH }}"
+          path: dist/aws-clipper*
       - name: Upload an executable as release assets
+        if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
         run: make upload-exe
         env:
           TAG_NAME: ${{  github.event.release.tag_name }}

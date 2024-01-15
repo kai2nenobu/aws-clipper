@@ -3,7 +3,7 @@
 [pypi_project]: https://pypi.org/project/aws-clipper/
 [pypi_badge]: https://img.shields.io/badge/pypi-v0.1.1-orange
 [license_badge]: https://img.shields.io/badge/license-MIT-green
-[pyversions]: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue
+[pyversions]: https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue
 [actions_status]: https://github.com/kai2nenobu/aws-clipper/actions/workflows/ci.yml/badge.svg
 [ci_workflow]: https://github.com/kai2nenobu/aws-clipper/actions/workflows/ci.yml
 

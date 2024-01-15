@@ -5,7 +5,7 @@ from typing import Any, TextIO
 
 import yaml
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 
 def _expand_value(v: Any, variables: dict[str, Any] = {}) -> str:

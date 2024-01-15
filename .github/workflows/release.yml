@@ -1,22 +1,28 @@
 name: Release
 
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   release:
     types: [published]
-
-permissions:
-  contents: write
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  publish:
-    name: Publish ${{ github.event.release.tag_name }} to PyPI
+  build:
+    name: Build a package
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+          fetch-tags: true
       - name: Use Python 3.9
         uses: actions/setup-python@v5
         id: cp39
@@ -26,13 +32,33 @@ jobs:
         run: pipx install --python '${{ steps.cp39.outputs.python-path }}' "poetry<2.0"
       - name: Install poetry plugins
         run: poetry self add poetry-dynamic-versioning
-      - name: Build and publish
-        run: poetry publish --build
-        env:
-          POETRY_PYPI_TOKEN_PYPI: "${{ secrets.PYPI_TOKEN }}"
+      - name: Build
+        run: poetry build
+      - name: Archive a package
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: dist/
+  publish:
+    name: Publish a package to PyPI
+    runs-on: ubuntu-22.04
+    needs: [build]
+    if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    environment: pypi
+    permissions:
+      id-token: write # mandatory for trusted publishing
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: package
+          path: dist/
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
   pyinstaller:
-    needs: [publish]
+    needs: [build]
     runs-on: "${{ matrix.OS }}"
+    permissions:
+      contents: write
     strategy:
       matrix:
         include:
@@ -45,8 +71,10 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
-          fetch-depth: 0
+          name: package
+          path: dist/
       - name: Use latest stable Python
         uses: actions/setup-python@v5
         id: cp311
@@ -56,12 +84,17 @@ jobs:
         run: >-
           version=$(echo '${{ github.event.release.tag_name }}' | sed 's/^v//')
           && pipx install --python '${{ steps.cp311.outputs.python-path }}' pyinstaller
-          && pipx inject pyinstaller "aws-clipper==$version"
+          && pipx inject pyinstaller dist/aws_clipper*.whl
       - name: Build a single executable
         run: make build-exe
       - name: Run executable
         run: ./dist/aws-clipper --version
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "exe-${{ matrix.ARCH }}"
+          path: dist/aws-clipper*
       - name: Upload an executable as release assets
+        if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
         run: make upload-exe
         env:
           TAG_NAME: ${{  github.event.release.tag_name }}

@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.3](https://github.com/kai2nenobu/aws-clipper/compare/v0.1.2...v0.1.3) - 2024-01-15
+- Don't fetch tags when event type is release by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/85
+
 ## [v0.1.2](https://github.com/kai2nenobu/aws-clipper/compare/v0.1.1...v0.1.2) - 2024-01-15
 - Group multiple dependencies in a single dependabot PR by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/79
 - build(deps): bump the all group with 3 updates by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/81

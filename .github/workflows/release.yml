@@ -8,9 +8,6 @@ on:
   release:
     types: [published]
 
-permissions:
-  contents: write
-
 defaults:
   run:
     shell: bash
@@ -19,6 +16,8 @@ jobs:
   build:
     name: Build a package
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - name: Use Python 3.9
@@ -54,6 +53,8 @@ jobs:
   pyinstaller:
     needs: [build]
     runs-on: "${{ matrix.OS }}"
+    permissions:
+      contents: write
     strategy:
       matrix:
         include:

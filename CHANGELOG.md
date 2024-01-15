@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.1.2](https://github.com/kai2nenobu/aws-clipper/compare/v0.1.1...v0.1.2) - 2024-01-15
+- Group multiple dependencies in a single dependabot PR by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/79
+- build(deps): bump the all group with 3 updates by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/81
+- build(deps-dev): bump the dev group with 6 updates by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/82
+- Use PyPI trusted publisher to publish a package by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/83
+- Support Python 3.12 by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/84
+
 ## [v0.1.1](https://github.com/kai2nenobu/aws-clipper/compare/v0.1.0...v0.1.1) - 2023-10-16
 - build(deps-dev): bump flake8 from 6.0.0 to 6.1.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/45
 - build(deps-dev): bump tox from 4.6.4 to 4.8.0 by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/47

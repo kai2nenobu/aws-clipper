@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: poetry build
       - name: Archive a package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: package
           path: dist/
@@ -47,6 +47,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: package
+          path: dist/
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1          
         if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
@@ -70,6 +71,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: package
+          path: dist/
       - name: Use latest stable Python
         uses: actions/setup-python@v5
         id: cp311

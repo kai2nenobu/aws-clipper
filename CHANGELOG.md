@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.1.4](https://github.com/kai2nenobu/aws-clipper/compare/v0.1.3...v0.1.4) - 2024-03-25
+- Specify a URL for pypi environment by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/87
+- build(deps-dev): bump the dev group with 6 updates by @dependabot in https://github.com/kai2nenobu/aws-clipper/pull/97
+
 ## [v0.1.3](https://github.com/kai2nenobu/aws-clipper/compare/v0.1.2...v0.1.3) - 2024-01-15
 - Don't fetch tags when event type is release by @kai2nenobu in https://github.com/kai2nenobu/aws-clipper/pull/85
 

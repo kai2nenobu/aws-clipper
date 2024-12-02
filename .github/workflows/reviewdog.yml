@@ -52,7 +52,7 @@ jobs:
           github_token: ${{ secrets.github_token }}
           filter_mode: nofilter
       - name: mypy
-        uses: tsuyoshicho/action-mypy@v4
+        uses: tsuyoshicho/action-mypy@v5
         with:
           github_token: ${{ secrets.github_token }}
           filter_mode: nofilter
